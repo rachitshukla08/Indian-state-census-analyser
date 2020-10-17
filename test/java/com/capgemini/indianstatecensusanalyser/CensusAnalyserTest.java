@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.capgemini.indianstatecensusanalyser.customexception.CensusAnalyserException;
+import com.capgemini.indianstatecensusanalyser.customexception.CodeAnalyserException;
 
 public class CensusAnalyserTest {
 	private static final String CENSUS_DATA_PATH = ".\\src\\main\\java\\com\\capgemini\\indianstatecensusanalyser\\resources\\IndiaStateCensusData.csv";
@@ -56,7 +57,7 @@ public class CensusAnalyserTest {
 	}
 	
 	@Test
-	public void givenCodeCSVFile_ReturnsCorrectNoOfEntries() throws CensusAnalyserException {
+	public void givenCodeCSVFile_ReturnsCorrectNoOfEntries() throws CodeAnalyserException {
 		int noOfEntries = stateCensusAnalyser.loadCodeData(STATE_CODE_DATA_PATH);
 		assertEquals(37, noOfEntries);
 	}
@@ -64,10 +65,10 @@ public class CensusAnalyserTest {
 	@Test
 	public void givenIncorrectStateCodeCSVFilePath_ThrowsCodeAnalyserExceptionOfTypeInvalidFilePath(){
 		try {
-			stateCensusAnalyser.loadCensusData(STATE_CODE_DATA_PATH+"123");
-		} catch (CensusAnalyserException e) {
+			stateCensusAnalyser.loadCodeData(STATE_CODE_DATA_PATH+"123");
+		} catch (CodeAnalyserException e) {
 			System.out.println(e.getMessage());
-			assertEquals(CensusAnalyserException.ExceptionType.INVALID_FILE_PATH, e.type);
+			assertEquals(CodeAnalyserException.ExceptionType.INVALID_FILE_PATH, e.type);
 		}
 	}
 }
