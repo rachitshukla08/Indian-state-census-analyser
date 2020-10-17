@@ -9,6 +9,7 @@ import com.capgemini.indianstatecensusanalyser.customexception.CensusAnalyserExc
 
 public class CensusAnalyserTest {
 	private static final String censusDataPath = ".\\src\\main\\java\\com\\capgemini\\indianstatecensusanalyser\\resources\\IndiaStateCensusData.csv";
+	private static final String censusDataPathIncorrectDelimiter = ".\\src\\main\\java\\com\\capgemini\\indianstatecensusanalyser\\resources\\IndiaStateCensusDataIncorrectDelimiter.csv";
 	private StateCensusAnalyser stateCensusAnalyser;
 
 	@Before
@@ -22,8 +23,23 @@ public class CensusAnalyserTest {
 		assertEquals(29, noOfEntries);
 	}
 	
-	@Test(expected = CensusAnalyserException.class)
-	public void givenIncorrectCSVFilePath_ThrowsCustomException() throws CensusAnalyserException {
-		stateCensusAnalyser.loadCensusData(censusDataPath+"123");
+	@Test
+	public void givenIncorrectCSVFilePath_ThrowsCustomException(){
+		try {
+			stateCensusAnalyser.loadCensusData(censusDataPath+"123");
+		} catch (CensusAnalyserException e) {
+			assertEquals(CensusAnalyserException.ExceptionType.INVALID_FILE_PATH, e.type);
+		}
 	}
+	
+	@Test
+	public void givenIncorrectDelimiter_ThrowsCustomException(){
+		try {
+			System.out.println(stateCensusAnalyser.loadCensusData(censusDataPathIncorrectDelimiter));
+		} catch (CensusAnalyserException e) {
+			System.out.println(e.getMessage());
+			assertEquals(CensusAnalyserException.ExceptionType.INVALID_DELIMITER, e.type);
+		}
+	}
+	
 }
