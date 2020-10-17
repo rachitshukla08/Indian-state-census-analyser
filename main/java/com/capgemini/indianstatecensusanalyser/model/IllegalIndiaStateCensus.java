@@ -4,7 +4,6 @@ import com.opencsv.bean.CsvBindByName;
 
 public class IllegalIndiaStateCensus {
 	private String state;
-	
 	private long pop;
 
 	@Override
