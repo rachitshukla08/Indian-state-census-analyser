@@ -41,7 +41,6 @@ public class StateCensusAnalyser {
 			while (censusIterator.hasNext()) {
 				noOfEntries++;
 				IndiaStateCensus censusData = censusIterator.next();
-				System.out.println(censusData);
 			}
 			BufferedReader br = new BufferedReader(new FileReader(censusDataPath));
 			String line = "";
@@ -81,14 +80,20 @@ public class StateCensusAnalyser {
 			while (censusIterator.hasNext()) {
 				noOfEntries++;
 				CSVStates codeData = censusIterator.next();
-				System.out.println(codeData);
 			}
 			BufferedReader br = new BufferedReader(new FileReader(codeDataPath));
+			String line = "";
+			while ((line = br.readLine()) != null) {
+				if (!line.contains(","))
+					throw new CodeAnalyserException("Invalid delimiter For Code Data",
+							CodeAnalyserException.ExceptionType.INVALID_DELIMITER);
+			}
+			br.close();
 			return noOfEntries;
 		} catch (IOException e) {
-			throw new CodeAnalyserException("Invalid File Path", CodeAnalyserException.ExceptionType.INVALID_FILE_PATH);
+			throw new CodeAnalyserException("Invalid File Path For Code Data", CodeAnalyserException.ExceptionType.INVALID_FILE_PATH);
 		} catch (IllegalStateException e) {
-			throw new CodeAnalyserException("Invalid Class Type",
+			throw new CodeAnalyserException("Invalid Class Type For Code Data",
 					CodeAnalyserException.ExceptionType.INVALID_CLASS_TYPE);
 		}
 	}

@@ -13,6 +13,7 @@ public class CensusAnalyserTest {
 	private static final String CENSUS_DATA_PATH_INCORRECT_DELIMITER = ".\\src\\main\\java\\com\\capgemini\\indianstatecensusanalyser\\resources\\IndiaStateCensusDataIncorrectDelimiter.csv";
 	private static final String CENSUS_DATA_PATH_INCORRECT_HEADER = ".\\src\\main\\java\\com\\capgemini\\indianstatecensusanalyser\\resources\\IndiaStateCensusDataIncorrectHeader.csv";
 	private static final String STATE_CODE_DATA_PATH = ".\\src\\main\\java\\com\\capgemini\\indianstatecensusanalyser\\resources\\IndiaStateCode.csv";
+	private static final String STATE_CODE_DATA_PATH_INCORRECT_DELIMITER = ".\\src\\main\\java\\com\\capgemini\\indianstatecensusanalyser\\resources\\IndiaStateCodeIncorrectDelimiter.csv";
 	private StateCensusAnalyser stateCensusAnalyser;
 
 	@Before
@@ -89,6 +90,16 @@ public class CensusAnalyserTest {
 		} catch (CodeAnalyserException e) {
 			System.out.println(e.getMessage());
 			assertEquals(CodeAnalyserException.ExceptionType.INVALID_CLASS_TYPE, e.type);
+		}
+	}
+	
+	@Test 
+	public void givenIncorrectStateCodeCSVDelimiter_ThrowsCodeAnalyserExceptionOfTypeInvalidDelimiter() {
+		try {
+			stateCensusAnalyser.loadCodeData(STATE_CODE_DATA_PATH_INCORRECT_DELIMITER);
+		} catch (CodeAnalyserException e) {
+			System.out.println(e.getMessage());
+			assertEquals(CodeAnalyserException.ExceptionType.INVALID_DELIMITER, e.type);
 		}
 	}
 }
