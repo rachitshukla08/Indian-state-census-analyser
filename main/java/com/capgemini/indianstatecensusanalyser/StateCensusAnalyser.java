@@ -39,9 +39,16 @@ public class StateCensusAnalyser {
 			
 			BufferedReader br = new BufferedReader(new FileReader(censusDataPath)); 
 			String line = "";
+			int ctr = 0;
 	            while ((line = br.readLine()) != null) {
 	            	if(!line.contains(","))
 	            		throw new CensusAnalyserException("Invalid delimiter", ExceptionType.INVALID_DELIMITER);
+	            	if(ctr==0) {
+	            		String[] headers = line.split(",");
+	            		if(!(headers[0].equals("State")&&headers[1].equals("Population")&&headers[2].equals("AreaInSqKm")&&headers[3].equals("DensityPerSqKm")))
+	            			throw new CensusAnalyserException("Invalid headers", ExceptionType.INVALID_HEADER);
+	            		ctr++;
+	            	}
 	            }
 			br.close();
 			
