@@ -13,6 +13,7 @@ import java.util.Iterator;
 
 import com.capgemini.indianstatecensusanalyser.customexception.CensusAnalyserException;
 import com.capgemini.indianstatecensusanalyser.customexception.CensusAnalyserException.ExceptionType;
+import com.capgemini.indianstatecensusanalyser.model.CSVStates;
 import com.capgemini.indianstatecensusanalyser.model.IndiaStateCensus;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
@@ -65,5 +66,26 @@ public class StateCensusAnalyser {
 		} catch (IOException e) {
 			throw new CensusAnalyserException("Invalid file location", ExceptionType.INVALID_FILE_PATH);
 		} 
+	}
+	
+	public int loadCodeData(String codeDataPath) {
+		try {
+			Reader reader = Files.newBufferedReader(Paths.get(codeDataPath));
+			CsvToBeanBuilder<CSVStates> csvToBeanBuilder = new CsvToBeanBuilder<CSVStates>(reader);
+			csvToBeanBuilder.withType(CSVStates.class);
+			csvToBeanBuilder.withIgnoreLeadingWhiteSpace(true);
+			CsvToBean<CSVStates> csvToBean = csvToBeanBuilder.build();
+			Iterator<CSVStates> censusIterator = csvToBean.iterator();
+			int noOfEntries = 0;
+			while (censusIterator.hasNext()) {
+				noOfEntries++;
+				CSVStates codeData = censusIterator.next();
+				System.out.println(codeData);
+			}
+			return noOfEntries;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return 0;
 	}
 }

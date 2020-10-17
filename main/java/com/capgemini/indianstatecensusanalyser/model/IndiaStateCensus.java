@@ -21,5 +21,4 @@ public class IndiaStateCensus {
 		return "IndiaStateCensus [stateName=" + stateName + ", population=" + population + ", area=" + area
 				+ ", density=" + density + "]";
 	}
-	
 }
