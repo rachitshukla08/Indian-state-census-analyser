@@ -42,9 +42,4 @@ public class StateCensusAnalyser {
 		}
 		return 0;
 	}
-
-	public static void main(String[] args) {
-		System.out.println(new StateCensusAnalyser().loadCensusData(
-				"D:\\eclipse_workspace\\IndianStateCensusAnalyser\\src\\main\\java\\com\\capgemini\\indianstatecensusanalyser\\resources\\IndiaStateCensusData.csv"));
-	}
 }
