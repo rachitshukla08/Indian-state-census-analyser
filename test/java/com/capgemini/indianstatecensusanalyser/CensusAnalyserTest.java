@@ -36,8 +36,18 @@ public class CensusAnalyserTest {
 		}
 	}
 	
+	@Test 
+	public void givenIncorrectCSVClassType_ThrowsCensusAnalyserExceptionOfTypeInvalidClassType() {
+		try {
+			stateCensusAnalyser.loadCensusData(CENSUS_DATA_PATH);
+		} catch (CensusAnalyserException e) {
+			System.out.println(e.getMessage());
+			assertEquals(CensusAnalyserException.ExceptionType.INVALID_CLASS_TYPE, e.type);
+		}
+	}
+	
 	@Test
-	public void givenIncorrectDelimiter_ThrowsCensusAnalyserExceptionOfTypeInalidDelimiter(){
+	public void givenIncorrectDelimiter_ThrowsCensusAnalyserExceptionOfTypeInvalidDelimiter(){
 		try {
 			System.out.println(stateCensusAnalyser.loadCensusData(CENSUS_DATA_PATH_INCORRECT_DELIMITER));
 		} catch (CensusAnalyserException e) {
@@ -69,6 +79,16 @@ public class CensusAnalyserTest {
 		} catch (CodeAnalyserException e) {
 			System.out.println(e.getMessage());
 			assertEquals(CodeAnalyserException.ExceptionType.INVALID_FILE_PATH, e.type);
+		}
+	}
+	
+	@Test 
+	public void givenIncorrectStateCodeCSVClassType_ThrowsCodeAnalyserExceptionOfTypeInvalidClassType() {
+		try {
+			stateCensusAnalyser.loadCodeData(CENSUS_DATA_PATH);
+		} catch (CodeAnalyserException e) {
+			System.out.println(e.getMessage());
+			assertEquals(CodeAnalyserException.ExceptionType.INVALID_CLASS_TYPE, e.type);
 		}
 	}
 }
