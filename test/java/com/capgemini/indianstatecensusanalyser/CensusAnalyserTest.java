@@ -60,4 +60,14 @@ public class CensusAnalyserTest {
 		int noOfEntries = stateCensusAnalyser.loadCodeData(STATE_CODE_DATA_PATH);
 		assertEquals(37, noOfEntries);
 	}
+	
+	@Test
+	public void givenIncorrectStateCodeCSVFilePath_ThrowsCodeAnalyserExceptionOfTypeInvalidFilePath(){
+		try {
+			stateCensusAnalyser.loadCensusData(STATE_CODE_DATA_PATH+"123");
+		} catch (CensusAnalyserException e) {
+			System.out.println(e.getMessage());
+			assertEquals(CensusAnalyserException.ExceptionType.INVALID_FILE_PATH, e.type);
+		}
+	}
 }
