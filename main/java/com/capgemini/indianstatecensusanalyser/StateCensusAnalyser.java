@@ -30,11 +30,7 @@ public class StateCensusAnalyser {
 	public int loadCensusData(String censusDataPath) throws CensusAnalyserException {
 		try (Reader reader = Files.newBufferedReader(Paths.get(censusDataPath));) {
 			Iterator<IndiaStateCensus> censusIterator = this.getCSVFileIterator(reader, IndiaStateCensus.class);
-			int noOfEntries = 0;
-			while (censusIterator.hasNext()) {
-				noOfEntries++;
-				IndiaStateCensus censusData = censusIterator.next();
-			}
+			int noOfEntries = this.getCount(censusIterator);
 			BufferedReader br = new BufferedReader(new FileReader(censusDataPath));
 			String line = "";
 			int ctr = 0;
@@ -68,11 +64,7 @@ public class StateCensusAnalyser {
 	public int loadCodeData(String codeDataPath) throws CensusAnalyserException {
 		try (Reader reader = Files.newBufferedReader(Paths.get(codeDataPath));) {
 			Iterator<CSVStates> censusIterator = this.getCSVFileIterator(reader, CSVStates.class);
-			int noOfEntries = 0;
-			while (censusIterator.hasNext()) {
-				noOfEntries++;
-				CSVStates codeData = censusIterator.next();
-			}
+			int noOfEntries = this.getCount(censusIterator);
 			BufferedReader br = new BufferedReader(new FileReader(codeDataPath));
 			String line = "";
 			int ctr = 0;
@@ -115,5 +107,14 @@ public class StateCensusAnalyser {
 			throw new CensusAnalyserException("Wrong class type",
 					CensusAnalyserException.ExceptionType.INVALID_CLASS_TYPE);
 		}
+	}
+	
+	private <E> int getCount(Iterator<E> iterator) {
+		int noOfEntries = 0;
+		while (iterator.hasNext()) {
+			noOfEntries++;
+			E censusData = iterator.next();
+		}
+		return noOfEntries;
 	}
 }
