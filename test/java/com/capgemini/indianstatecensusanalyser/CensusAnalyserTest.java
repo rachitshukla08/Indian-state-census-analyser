@@ -42,7 +42,7 @@ public class CensusAnalyserTest {
 	@Test 
 	public void givenIncorrectCSVClassType_ThrowsCensusAnalyserExceptionOfTypeInvalidClassType() {
 		try {
-			stateCensusAnalyser.loadCensusData(STATE_CODE_DATA_PATH);
+			stateCensusAnalyser.loadCensusData(CENSUS_DATA_PATH);
 		} catch (CensusAnalyserException e) {
 			System.out.println(e.getMessage());
 			assertEquals(CensusAnalyserException.ExceptionType.INVALID_CLASS_TYPE, e.type);
@@ -88,7 +88,7 @@ public class CensusAnalyserTest {
 	@Test 
 	public void givenIncorrectStateCodeCSVClassType_ThrowsCodeAnalyserExceptionOfTypeInvalidClassType() {
 		try {
-			stateCensusAnalyser.loadCodeData(CENSUS_DATA_PATH);
+			stateCensusAnalyser.loadCodeData(STATE_CODE_DATA_PATH);
 		} catch (CodeAnalyserException e) {
 			System.out.println(e.getMessage());
 			assertEquals(CodeAnalyserException.ExceptionType.INVALID_CLASS_TYPE, e.type);
@@ -108,7 +108,7 @@ public class CensusAnalyserTest {
 	@Test
 	public void givenIncorrectStateCodeCSVHeader_ThrowsCodeAnalyserExceptionOfTypeInvalidHeader(){
 		try {
-			System.out.println(stateCensusAnalyser.loadCodeData(CENSUS_DATA_PATH_INCORRECT_HEADER));
+			System.out.println(stateCensusAnalyser.loadCodeData(STATE_CODE_DATA_PATH_INCORRECT_HEADER));
 		} catch (CodeAnalyserException e) {
 			System.out.println(e.getMessage());
 			assertEquals(CodeAnalyserException.ExceptionType.INVALID_HEADER, e.type);
