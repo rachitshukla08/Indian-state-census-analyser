@@ -6,7 +6,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.capgemini.indianstatecensusanalyser.customexception.CensusAnalyserException;
-import com.capgemini.indianstatecensusanalyser.customexception.CodeAnalyserException;
 
 public class CensusAnalyserTest {
 	private static final String CENSUS_DATA_PATH = ".\\src\\main\\java\\com\\capgemini\\indianstatecensusanalyser\\resources\\IndiaStateCensusData.csv";
@@ -70,7 +69,7 @@ public class CensusAnalyserTest {
 	}
 	
 	@Test
-	public void givenCodeCSVFile_ReturnsCorrectNoOfEntries() throws CodeAnalyserException {
+	public void givenCodeCSVFile_ReturnsCorrectNoOfEntries() throws CensusAnalyserException {
 		int noOfEntries = stateCensusAnalyser.loadCodeData(STATE_CODE_DATA_PATH);
 		assertEquals(37, noOfEntries);
 	}
@@ -79,9 +78,9 @@ public class CensusAnalyserTest {
 	public void givenIncorrectStateCodeCSVFilePath_ThrowsCodeAnalyserExceptionOfTypeInvalidFilePath(){
 		try {
 			stateCensusAnalyser.loadCodeData(STATE_CODE_DATA_PATH+"123");
-		} catch (CodeAnalyserException e) {
+		} catch (CensusAnalyserException e) {
 			System.out.println(e.getMessage());
-			assertEquals(CodeAnalyserException.ExceptionType.INVALID_FILE_PATH, e.type);
+			assertEquals(CensusAnalyserException.ExceptionType.INVALID_FILE_PATH, e.type);
 		}
 	}
 	
@@ -89,9 +88,9 @@ public class CensusAnalyserTest {
 	public void givenIncorrectStateCodeCSVClassType_ThrowsCodeAnalyserExceptionOfTypeInvalidClassType() {
 		try {
 			stateCensusAnalyser.loadCodeData(STATE_CODE_DATA_PATH);
-		} catch (CodeAnalyserException e) {
+		} catch (CensusAnalyserException e) {
 			System.out.println(e.getMessage());
-			assertEquals(CodeAnalyserException.ExceptionType.INVALID_CLASS_TYPE, e.type);
+			assertEquals(CensusAnalyserException.ExceptionType.INVALID_CLASS_TYPE, e.type);
 		}
 	}
 	
@@ -99,9 +98,9 @@ public class CensusAnalyserTest {
 	public void givenIncorrectStateCodeCSVDelimiter_ThrowsCodeAnalyserExceptionOfTypeInvalidDelimiter() {
 		try {
 			stateCensusAnalyser.loadCodeData(STATE_CODE_DATA_PATH_INCORRECT_DELIMITER);
-		} catch (CodeAnalyserException e) {
+		} catch (CensusAnalyserException e) {
 			System.out.println(e.getMessage());
-			assertEquals(CodeAnalyserException.ExceptionType.INVALID_DELIMITER, e.type);
+			assertEquals(CensusAnalyserException.ExceptionType.INVALID_DELIMITER, e.type);
 		}
 	}
 	
@@ -109,9 +108,9 @@ public class CensusAnalyserTest {
 	public void givenIncorrectStateCodeCSVHeader_ThrowsCodeAnalyserExceptionOfTypeInvalidHeader(){
 		try {
 			System.out.println(stateCensusAnalyser.loadCodeData(STATE_CODE_DATA_PATH_INCORRECT_HEADER));
-		} catch (CodeAnalyserException e) {
+		} catch (CensusAnalyserException e) {
 			System.out.println(e.getMessage());
-			assertEquals(CodeAnalyserException.ExceptionType.INVALID_HEADER, e.type);
+			assertEquals(CensusAnalyserException.ExceptionType.INVALID_HEADER, e.type);
 		}
 	}
 }
