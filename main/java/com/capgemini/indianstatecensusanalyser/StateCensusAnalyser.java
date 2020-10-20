@@ -10,6 +10,7 @@ import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Iterator;
+import java.util.List;
 
 import com.capgemini.indianstatecensusanalyser.model.CSVStates;
 import com.capgemini.indianstatecensusanalyser.model.IndiaStateCensus;
@@ -32,13 +33,13 @@ public class StateCensusAnalyser {
 	public int loadCensusData(String censusDataPath) throws CensusAnalyserException {
 		try (Reader reader = Files.newBufferedReader(Paths.get(censusDataPath));) {
 			ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
-			Iterator<IndiaStateCensus> censusIterator = null;
+			List<IndiaStateCensus> censusCSVList = null;
 			try {
-				censusIterator = csvBuilder.getCSVFileIterator(reader, IndiaStateCensus.class);
+				censusCSVList = csvBuilder.getCSVFileList(reader, IndiaStateCensus.class);
 			} catch (CsvException e) {
 				throw new CensusAnalyserException("Invalid Class Type", ExceptionType.INVALID_CLASS_TYPE);
 			}
-			int noOfEntries = this.getCount(censusIterator);
+			int noOfEntries = censusCSVList.size();
 			BufferedReader br = new BufferedReader(new FileReader(censusDataPath));
 			String line = "";
 			int ctr = 0;
@@ -68,13 +69,13 @@ public class StateCensusAnalyser {
 	public int loadCodeData(String codeDataPath) throws CensusAnalyserException {
 		try (Reader reader = Files.newBufferedReader(Paths.get(codeDataPath));) {
 			ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
-			Iterator<CSVStates> censusIterator = null;
+			List<CSVStates> codeCSVList = null;
 			try {
-				censusIterator = csvBuilder.getCSVFileIterator(reader, CSVStates.class);
+				codeCSVList = csvBuilder.getCSVFileList(reader, CSVStates.class);
 			} catch (CsvException e) {
 				throw new CensusAnalyserException("Invalid Class Type", ExceptionType.INVALID_CLASS_TYPE);
 			}
-			int noOfEntries = this.getCount(censusIterator);
+			int noOfEntries = codeCSVList.size();
 			BufferedReader br = new BufferedReader(new FileReader(codeDataPath));
 			String line = "";
 			int ctr = 0;
@@ -96,20 +97,5 @@ public class StateCensusAnalyser {
 		} catch (IOException e) {
 			throw new CensusAnalyserException("Invalid File Path For Code Data", ExceptionType.INVALID_FILE_PATH);
 		}
-	}
-
-	/**
-	 * @param <E>
-	 * @param <E>
-	 * @param iterator
-	 * @return count
-	 */
-	public <E> int getCount(Iterator<E> iterator) {
-		int noOfEntries = 0;
-		while (iterator.hasNext()) {
-			noOfEntries++;
-			E censusData = iterator.next();
-		}
-		return noOfEntries;
 	}
 }
