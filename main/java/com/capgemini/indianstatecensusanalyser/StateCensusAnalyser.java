@@ -9,15 +9,18 @@ import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Iterator;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.capgemini.indianstatecensusanalyser.model.CSVStates;
 import com.capgemini.indianstatecensusanalyser.model.IndiaStateCensus;
 import com.capgemini.indianstatecensusanalyser.service.CSVBuilderFactory;
 import com.capgemini.indianstatecensusanalyser.service.CensusAnalyserException;
-import com.capgemini.indianstatecensusanalyser.service.ICSVBuilder;
 import com.capgemini.indianstatecensusanalyser.service.CensusAnalyserException.ExceptionType;
+import com.capgemini.indianstatecensusanalyser.service.ICSVBuilder;
+import com.google.gson.Gson;
 import com.opencsv.exceptions.CsvException;
 
 /**
@@ -25,6 +28,9 @@ import com.opencsv.exceptions.CsvException;
  *
  */
 public class StateCensusAnalyser {
+
+	List<IndiaStateCensus> censusCSVList = null;
+
 	/**
 	 * @param censusDataPath
 	 * @return number of entries
@@ -33,7 +39,6 @@ public class StateCensusAnalyser {
 	public int loadCensusData(String censusDataPath) throws CensusAnalyserException {
 		try (Reader reader = Files.newBufferedReader(Paths.get(censusDataPath));) {
 			ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
-			List<IndiaStateCensus> censusCSVList = null;
 			try {
 				censusCSVList = csvBuilder.getCSVFileList(reader, IndiaStateCensus.class);
 			} catch (CsvException e) {
@@ -98,4 +103,15 @@ public class StateCensusAnalyser {
 			throw new CensusAnalyserException("Invalid File Path For Code Data", ExceptionType.INVALID_FILE_PATH);
 		}
 	}
+
+	public String getStateWiseSortedCensusData() throws CensusAnalyserException {
+		if(censusCSVList==null||censusCSVList.size()==0)
+			throw new CensusAnalyserException("No Census Data", ExceptionType.NO_CENSUS_DATA);
+		List<IndiaStateCensus> sortedList = censusCSVList.stream()
+				.sorted(Comparator.comparing(IndiaStateCensus::getStateName))
+				.collect(Collectors.toList());
+		String sortedCensusDataJson = new Gson().toJson(sortedList);
+		return sortedCensusDataJson;
+	}
+
 }
