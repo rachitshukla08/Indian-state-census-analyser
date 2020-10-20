@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.capgemini.indianstatecensusanalyser;
 
 import java.io.BufferedReader;
@@ -145,6 +142,16 @@ public class StateCensusAnalyser {
 			throw new CensusAnalyserException("No Census Data", ExceptionType.NO_CENSUS_DATA);
 		List<IndiaStateCensus> sortedList = censusCSVList.stream()
 				.sorted(Comparator.comparing(IndiaStateCensus::getDensity).reversed())
+				.collect(Collectors.toList());
+		String sortedCensusDataJson = new Gson().toJson(sortedList);
+		return sortedCensusDataJson;
+	}
+	
+	public String getAreaWiseSortedCensusData() throws CensusAnalyserException {
+		if(censusCSVList==null||censusCSVList.size()==0)
+			throw new CensusAnalyserException("No Census Data", ExceptionType.NO_CENSUS_DATA);
+		List<IndiaStateCensus> sortedList = censusCSVList.stream()
+				.sorted(Comparator.comparing(IndiaStateCensus::getArea).reversed())
 				.collect(Collectors.toList());
 		String sortedCensusDataJson = new Gson().toJson(sortedList);
 		return sortedCensusDataJson;

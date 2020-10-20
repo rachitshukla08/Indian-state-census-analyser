@@ -45,4 +45,12 @@ public class IndiaStateCensus {
 	public void setDensity(int density) {
 		this.density = density;
 	}
+
+	public int getArea() {
+		return area;
+	}
+
+	public void setArea(int area) {
+		this.area = area;
+	}
 }
