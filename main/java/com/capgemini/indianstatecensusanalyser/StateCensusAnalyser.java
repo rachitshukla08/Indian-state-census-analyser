@@ -129,4 +129,14 @@ public class StateCensusAnalyser {
 		String sortedCodeDataJson = new Gson().toJson(sortedList);
 		return sortedCodeDataJson;
 	}
+	
+	public String getPopulationWiseSortedCensusData() throws CensusAnalyserException {
+		if(censusCSVList==null||censusCSVList.size()==0)
+			throw new CensusAnalyserException("No Census Data", ExceptionType.NO_CENSUS_DATA);
+		List<IndiaStateCensus> sortedList = censusCSVList.stream()
+				.sorted(Comparator.comparing(IndiaStateCensus::getPopulation).reversed())
+				.collect(Collectors.toList());
+		String sortedCensusDataJson = new Gson().toJson(sortedList);
+		return sortedCensusDataJson;
+	}
 }

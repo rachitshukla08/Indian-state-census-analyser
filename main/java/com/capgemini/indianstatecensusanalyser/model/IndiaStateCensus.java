@@ -29,4 +29,13 @@ public class IndiaStateCensus {
 	public void setStateName(String stateName) {
 		this.stateName = stateName;
 	}
+
+	public long getPopulation() {
+		return population;
+	}
+
+	public void setPopulation(long population) {
+		this.population = population;
+	}
+	
 }
