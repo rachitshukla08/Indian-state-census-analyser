@@ -5,7 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.capgemini.indianstatecensusanalyser.customexception.CensusAnalyserException;
+import com.capgemini.indianstatecensusanalyser.service.CensusAnalyserException;
 
 public class CensusAnalyserTest {
 	private static final String CENSUS_DATA_PATH = ".\\src\\main\\java\\com\\capgemini\\indianstatecensusanalyser\\resources\\IndiaStateCensusData.csv";

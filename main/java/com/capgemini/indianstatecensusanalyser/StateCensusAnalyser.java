@@ -11,12 +11,12 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Iterator;
 
-import com.capgemini.indianstatecensusanalyser.customexception.CensusAnalyserException;
-import com.capgemini.indianstatecensusanalyser.customexception.CensusAnalyserException.ExceptionType;
 import com.capgemini.indianstatecensusanalyser.model.CSVStates;
 import com.capgemini.indianstatecensusanalyser.model.IndiaStateCensus;
 import com.capgemini.indianstatecensusanalyser.service.CSVBuilderFactory;
+import com.capgemini.indianstatecensusanalyser.service.CensusAnalyserException;
 import com.capgemini.indianstatecensusanalyser.service.ICSVBuilder;
+import com.capgemini.indianstatecensusanalyser.service.CensusAnalyserException.ExceptionType;
 import com.opencsv.exceptions.CsvException;
 
 /**
