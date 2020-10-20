@@ -37,5 +37,12 @@ public class IndiaStateCensus {
 	public void setPopulation(long population) {
 		this.population = population;
 	}
-	
+
+	public int getDensity() {
+		return density;
+	}
+
+	public void setDensity(int density) {
+		this.density = density;
+	}
 }
