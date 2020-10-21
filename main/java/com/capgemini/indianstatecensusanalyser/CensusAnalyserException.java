@@ -1,4 +1,4 @@
-package com.capgemini.indianstatecensusanalyser.service;
+package com.capgemini.indianstatecensusanalyser;
 
 public class CensusAnalyserException extends Exception {
 	public enum ExceptionType{

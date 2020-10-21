@@ -7,7 +7,6 @@ import org.junit.Test;
 
 import com.capgemini.indianstatecensusanalyser.model.CSVStates;
 import com.capgemini.indianstatecensusanalyser.model.IndiaStateCensus;
-import com.capgemini.indianstatecensusanalyser.service.CensusAnalyserException;
 import com.google.gson.Gson;
 
 public class CensusAnalyserTest {

@@ -10,11 +10,10 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.capgemini.indianstatecensusanalyser.CensusAnalyserException.ExceptionType;
 import com.capgemini.indianstatecensusanalyser.model.CSVStates;
 import com.capgemini.indianstatecensusanalyser.model.IndiaStateCensus;
 import com.capgemini.indianstatecensusanalyser.service.CSVBuilderFactory;
-import com.capgemini.indianstatecensusanalyser.service.CensusAnalyserException;
-import com.capgemini.indianstatecensusanalyser.service.CensusAnalyserException.ExceptionType;
 import com.capgemini.indianstatecensusanalyser.service.ICSVBuilder;
 import com.google.gson.Gson;
 import com.opencsv.exceptions.CsvException;
@@ -25,8 +24,8 @@ import com.opencsv.exceptions.CsvException;
  */
 public class StateCensusAnalyser {
 
-	List<IndiaStateCensus> censusCSVList = null;
-	List<CSVStates> codeCSVList = null;
+	List<IndiaStateCensus> censusCSVList;
+	List<CSVStates> codeCSVList ;
 	/**
 	 * @param censusDataPath
 	 * @return number of entries
